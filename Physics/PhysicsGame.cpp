@@ -16,6 +16,7 @@ bool PhysicsGame::startup()
 
 	m_Render = new aie::Renderer2D();
 	m_Font = new aie::Font("../bin/font/consolas.ttf", 32);
+	physics = new PhysicsScene();
 
 	m_Timer = 0;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "Application.h" 
 #include "Renderer2D.h"
-#include "phys"
+#include "PhysicsScene.h"
 
 class PhysicsGame : public aie::Application
 {
@@ -19,6 +19,7 @@ private:
 	
 	aie::Font* m_Font;
 	aie::Renderer2D* m_Render;
+	PhysicsScene* physics;
 
 	float m_Timer;
 };
