@@ -15,6 +15,10 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 private:
-	float m_timer;
+	
+	aie::Font* m_Font;
+	aie::Renderer2D* m_Render;
+
+	float m_Timer;
 };
 

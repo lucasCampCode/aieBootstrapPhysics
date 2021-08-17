@@ -152,9 +152,11 @@
   <ItemGroup>
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsGame.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsGame.h" />
+    <ClInclude Include="PhysicsObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
