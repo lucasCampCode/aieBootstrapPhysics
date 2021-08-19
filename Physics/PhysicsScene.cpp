@@ -1,6 +1,7 @@
 #include "PhysicsScene.h"
 #include "PhysicsObject.h"
 #include "Sphere.h"
+#include "glm/ext.hpp"
 PhysicsScene::PhysicsScene() : m_timeStep(0.01f), m_gravity(glm::vec2(0,0))
 {
 }
@@ -29,15 +30,18 @@ void PhysicsScene::update(float deltaTime)
 	accumlatedTime += deltaTime;
 
 	while (accumlatedTime >= m_timeStep) {
+
 		for (PhysicsObject* actor : m_actors) {
 			actor->fixedUpdate(m_gravity, m_timeStep);
 		}
 		accumlatedTime -= m_timeStep;
 
-		int actorCount = m_actors.size();
-
-		for(auto outer = m_actors.begin(); outer != --m_actors.end(); outer++) {
-			for (auto inner = ++outer; inner != m_actors.end(); inner++) {
+		auto last = m_actors.end();
+		last--;
+		for(auto outer = m_actors.begin(); outer != last; outer++) {
+			auto innerStart = outer;
+			innerStart++;
+			for (auto inner = innerStart; inner != m_actors.end(); inner++) {
 				PhysicsObject* object1 = *outer;
 				PhysicsObject* object2 = *inner;
 
@@ -61,8 +65,17 @@ bool PhysicsScene::spherToSphere(PhysicsObject* obj1, PhysicsObject* obj2)
 	Sphere* sphere2 = dynamic_cast<Sphere*>(obj2);
 	
 	if (sphere1 != nullptr && sphere2 != nullptr) {
-		glm::vec2 direction = sphere2->getPosition() - sphere1->getPosition();
+		glm::vec2 direction = glm::normalize(sphere2->getPosition() - sphere1->getPosition());
 
+		float powX = glm::pow((sphere2->getPosition().x - sphere1->getPosition().x), 2);
+		float powY = glm::pow((sphere2->getPosition().y - sphere1->getPosition().y), 2);
+		float magnitude = glm::sqrt(powX + powY);
+
+		
+
+		if (magnitude < sphere1->getRadius() + sphere2->getRadius()) {
+			sphere1->applyForceToActor(sphere2, direction);
+		}
 	}
 
 	return false;

@@ -14,7 +14,7 @@ public:
 	glm::vec2 getPosition() { return m_position; }
 	float getOrientation() { return m_orientation; }
 	glm::vec2 getVelocity() { return m_velocity; }
-	float getMAss() { return m_mass; }
+	float getMass() { return m_mass; }
 
 private:
 	glm::vec2 m_position;

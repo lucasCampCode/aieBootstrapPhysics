@@ -26,9 +26,12 @@ bool PhysicsGame::startup()
 	m_scene->setGravity({ 0, 0 });
 	m_scene->setTimeStep(0.01f);
 
-	Sphere* ball;
-	ball = new Sphere({ 10,10 }, { 0,0 }, 3, 10, { 0.25f,0.75f,0.75f,1.0f });
+	Sphere* ball = new Sphere({ 10, 15 }, { 0,0 }, 1, 5, { 0.25f,0.75f,0.75f,1.0f });
 	m_scene->addActor(ball);
+
+	Sphere* ball2 = new Sphere({ -20,10 }, { 50.0f,0.0f }, 1, 5, { 0.0f,0.5f,0.25f,1.0f });
+	m_scene->addActor(ball2);
+
 
 	m_Timer = 0;
 
