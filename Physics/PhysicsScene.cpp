@@ -30,6 +30,7 @@ void PhysicsScene::update(float deltaTime)
 			actor->fixedUpdate(m_gravity, m_timeStep);
 		}
 		accumlatedTime -= m_timeStep;
+		
 	}
 }
 
