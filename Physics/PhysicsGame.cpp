@@ -15,8 +15,8 @@ bool PhysicsGame::startup()
 	setBackgroundColour(0.0f,0.0f,0.0f);
 
 	m_Render = new aie::Renderer2D();
-	m_Font = new aie::Font("../bin/font/consolas.ttf", 32);
-	physics = new PhysicsScene();
+	m_Font = new aie::Font("../assets/font/consolas.ttf", 32);
+	m_physics = new PhysicsScene();
 
 	m_Timer = 0;
 
@@ -33,6 +33,9 @@ void PhysicsGame::update(float deltaTime)
 {
 	//get input instance
 	aie::Input* input = aie::Input::getInstance();
+
+	m_physics->update(deltaTime);
+	m_physics->draw();
 
 	//quits application when escape is pushed
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))

@@ -19,7 +19,7 @@ private:
 	
 	aie::Font* m_Font;
 	aie::Renderer2D* m_Render;
-	PhysicsScene* physics;
+	PhysicsScene* m_physics;
 
 	float m_Timer;
 };
