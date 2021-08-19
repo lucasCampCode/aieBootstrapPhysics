@@ -13,6 +13,8 @@ public:
 	void removeActor(PhysicsObject* actor);
 	void update(float deltaTime);
 	void draw();
+	
+	static bool spherToSphere(PhysicsObject* obj1,PhysicsObject* obj2);
 
 	void setGravity(const glm::vec2 gravity) { m_gravity = gravity; }
 	glm::vec2 getGravity() const { return m_gravity; }

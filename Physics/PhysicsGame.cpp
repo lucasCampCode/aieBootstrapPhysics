@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Gizmos.h"
 #include "glm/ext.hpp"
+#include "Sphere.h"
 
 PhysicsGame::PhysicsGame()
 {
@@ -14,15 +15,20 @@ PhysicsGame::~PhysicsGame()
 
 bool PhysicsGame::startup()
 {
-	aie::Gizmos::create(255U,255U,65535U,65535U);
+	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
 	m_Render = new aie::Renderer2D();
-	setBackgroundColour(0.0f,0.0f,0.0f);
+	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	m_Font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_scene = new PhysicsScene();
+	m_scene->setGravity({ 0, 0 });
 	m_scene->setTimeStep(0.01f);
+
+	Sphere* ball;
+	ball = new Sphere({ 10,10 }, { 0,0 }, 3, 10, { 0.25f,0.75f,0.75f,1.0f });
+	m_scene->addActor(ball);
 
 	m_Timer = 0;
 
@@ -58,6 +64,7 @@ void PhysicsGame::draw()
 	m_Render->begin();
 
 	m_scene->draw();
+
 	static float aspectRatio = 16.0f / 9.f;
 	aie::Gizmos::draw2D(glm::ortho<float>(-100, 100, -100 / aspectRatio, 100 / aspectRatio, -1.0f, 1.0f));
 
