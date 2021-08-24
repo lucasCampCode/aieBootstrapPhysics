@@ -4,6 +4,7 @@
 #include "Gizmos.h"
 #include "glm/ext.hpp"
 #include "Sphere.h"
+#include "Plane.h"
 
 PhysicsGame::PhysicsGame()
 {
@@ -23,14 +24,20 @@ bool PhysicsGame::startup()
 	m_Font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_scene = new PhysicsScene();
-	m_scene->setGravity({ 0, 0 });
+	m_scene->setGravity({ 0, -9.82f });
 	m_scene->setTimeStep(0.01f);
 
-	Sphere* ball = new Sphere({ 10, 15 }, { 0,0 }, 1, 5, { 0.25f,0.75f,0.75f,1.0f });
+	Sphere* ball = new Sphere({ -80, 15 }, { 0.0f,0.0f }, 4.0f, 4.0f, { 0.25f,0.75f,0.75f,1.0f });
 	m_scene->addActor(ball);
 
-	Sphere* ball2 = new Sphere({ -20,10 }, { 50.0f,0.0f }, 1, 5, { 0.0f,0.5f,0.25f,1.0f });
+	Sphere* ball2 = new Sphere({ -100,10 }, { 50.0f,0.0f }, 4.0f, 4.0f, { 0.0f,0.5f,0.25f,1.0f });
 	m_scene->addActor(ball2);
+
+	Plane* plane1 = new Plane({ 0.0f,1.0f }, -30.0f, { 1.0f,1.0f,1.0f,1.0f });
+	m_scene->addActor(plane1);
+
+	//Plane* plane2 = new Plane({ -0.8f,1.0f }, -30.0f, { 1.0f,1.0f,1.0f,1.0f });
+	//m_scene->addActor(plane2);
 
 
 	m_Timer = 0;
