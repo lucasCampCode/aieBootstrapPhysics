@@ -32,7 +32,7 @@ void RigidBody::resolveCollision(RigidBody* other)
 	float massA = getMass();
 	float massB = other->getMass();
 
-	float elasticity = 1.01f;
+	float elasticity = 1.0f;
 	// j = ((-(1+e)*Vrel) dot n)/ (n dot(n*(1/MA+1/MA)))
 	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), collisionNormal) / 
 			  ((1 / massA) + (1 / massB));

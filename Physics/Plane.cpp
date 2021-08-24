@@ -39,9 +39,12 @@ void Plane::resolveCollision(RigidBody* other)
 	float elasticity = 1.0f;
 	glm::vec2 VelocityA = other->getVelocity();
 	glm::vec2 planeNormal = getNormal();
+	float massA = other->getMass();
 
-	glm::vec2 j = (other->getMass()* planeNormal * -(1 + elasticity) * glm::dot(VelocityA, planeNormal)) ;
+	//glm::vec2 j = (other->getMass()* planeNormal * -(1 + elasticity) * glm::dot(VelocityA, planeNormal)) ; 
+	float j = glm::dot(-(1 + elasticity) * (VelocityA), planeNormal) /
+	glm::dot(planeNormal,planeNormal * (1 / massA));
 
-	other->applyForce(j);
+	other->applyForce(planeNormal * j);
 
 }
