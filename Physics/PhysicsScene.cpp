@@ -49,9 +49,9 @@ void PhysicsScene::draw()
 		actor->draw();
 	}
 }
-typedef bool(*collisionCheck)(PhysicsObject*, PhysicsObject*);
+typedef bool(*fn)(PhysicsObject*, PhysicsObject*);
 
-static collisionCheck collisionFunctionArray[] = {
+static fn collisionFunctionArray[] = {
 	PhysicsScene::planeToPlane,PhysicsScene::planeToSphere,PhysicsScene::planeToBox,
 	PhysicsScene::sphereToPlane,PhysicsScene::sphereToSphere,PhysicsScene::sphereToBox,
 	PhysicsScene::boxToPlane,PhysicsScene::boxToSphere,PhysicsScene::boxToBox
@@ -70,7 +70,7 @@ void PhysicsScene::checkCollision()
 			int shapeId2 = (int)(object2->getShapeID());
 
 			int functionIdx = (shapeId1 * (int)ShapeType::LENGTH) + shapeId2;
-			collisionCheck collisionFuntionPtr = collisionFunctionArray[functionIdx];
+			fn collisionFuntionPtr = collisionFunctionArray[functionIdx];
 			if (collisionFuntionPtr != nullptr) {
 				collisionFuntionPtr(object1, object2);
 			}
@@ -134,7 +134,7 @@ bool PhysicsScene::sphereToPlane(PhysicsObject* obj1, PhysicsObject* obj2)
 		float sphereRadius = sphere->getRadius();
 		float intersectionDistance = glm::dot(sphereCenter, planeNormal) - planeDistance - sphereRadius;
 		if (intersectionDistance <= 0) {
-			sphere->applyForce(-sphere->getVelocity() * sphere->getMass());
+			plane->resolveCollision(sphere);
 			return true;
 		}
 	}

@@ -7,10 +7,10 @@ public:
 	~RigidBody();
 
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep);
-	void resolveCollision(RigidBody* actor);
 
 	void applyForce(glm::vec2 force);
-	void applyForceToActor(RigidBody* actor2, glm::vec2 force);
+	void applyForceToOther(RigidBody* other, glm::vec2 force);
+	void resolveCollision(RigidBody* other);
 
 	glm::vec2 getPosition() { return m_position; }
 	float getOrientation() { return m_orientation; }
