@@ -24,13 +24,13 @@ bool PhysicsGame::startup()
 	m_Font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	m_scene = new PhysicsScene();
-	m_scene->setGravity({ 0, -9.81 });
+	m_scene->setGravity({ 0, -9.82f });
 	m_scene->setTimeStep(0.01f);
 
-	Sphere* ball = new Sphere({ 10, 15 }, { 0.0f,0.0f }, 4.0f, 4.0f, { 0.25f,0.75f,0.75f,1.0f });
+	Sphere* ball = new Sphere({ -80, 15 }, { 0.0f,0.0f }, 4.0f, 4.0f, { 0.25f,0.75f,0.75f,1.0f });
 	m_scene->addActor(ball);
 
-	Sphere* ball2 = new Sphere({ -20,10 }, { 0.0f,0.0f }, 4.0f, 4.0f, { 0.0f,0.5f,0.25f,1.0f });
+	Sphere* ball2 = new Sphere({ -100,10 }, { 50.0f,0.0f }, 4.0f, 4.0f, { 0.0f,0.5f,0.25f,1.0f });
 	m_scene->addActor(ball2);
 
 	Plane* plane1 = new Plane({ 0.0f,1.0f }, -30.0f, { 1.0f,1.0f,1.0f,1.0f });

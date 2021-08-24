@@ -49,9 +49,9 @@ void PhysicsScene::draw()
 		actor->draw();
 	}
 }
-typedef bool(*fn)(PhysicsObject*, PhysicsObject*);
+typedef bool(*collisionCheck)(PhysicsObject*, PhysicsObject*);
 
-static fn collisionFunctionArray[] = {
+static collisionCheck collisionFunctionArray[] = {
 	PhysicsScene::planeToPlane,PhysicsScene::planeToSphere,PhysicsScene::planeToBox,
 	PhysicsScene::sphereToPlane,PhysicsScene::sphereToSphere,PhysicsScene::sphereToBox,
 	PhysicsScene::boxToPlane,PhysicsScene::boxToSphere,PhysicsScene::boxToBox
@@ -70,7 +70,7 @@ void PhysicsScene::checkCollision()
 			int shapeId2 = (int)(object2->getShapeID());
 
 			int functionIdx = (shapeId1 * (int)ShapeType::LENGTH) + shapeId2;
-			fn collisionFuntionPtr = collisionFunctionArray[functionIdx];
+			collisionCheck collisionFuntionPtr = collisionFunctionArray[functionIdx];
 			if (collisionFuntionPtr != nullptr) {
 				collisionFuntionPtr(object1, object2);
 			}
@@ -90,7 +90,7 @@ bool PhysicsScene::sphereToSphere(PhysicsObject* obj1, PhysicsObject* obj2)
 		float magnitude = glm::sqrt(powX + powY);
 
 		if (magnitude < sphere1->getRadius() + sphere2->getRadius()) {
-			sphere1->applyForceToActor(sphere2, direction);
+			sphere1->resolveCollision(sphere2);
 		}
 	}
 

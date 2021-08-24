@@ -1,6 +1,7 @@
 #pragma once
 #include "PhysicsObject.h"
 #include "glm/vec4.hpp"
+class RigidBody;
 class Plane : public PhysicsObject
 {
 public:
@@ -9,6 +10,7 @@ public:
 
 	virtual void fixedUpdate(glm::vec2 gravity, float deltaTime);
 	virtual void draw();
+	void resolveCollision(RigidBody* actor);
 
 	glm::vec2 getNormal() { return m_normal; }
 	float getDistance() { return m_distance; }

@@ -1,5 +1,7 @@
 #include "Plane.h"
 #include "Gizmos.h"
+#include "RigidBody.h"
+#include "glm/ext.hpp"
 Plane::Plane(glm::vec2 normal, float distance,glm::vec4 color) :PhysicsObject(ShapeType::PLANE)
 {
 	m_normal = normal;
@@ -25,4 +27,12 @@ void Plane::draw()
 	glm::vec2 end = centerPoint - (parallel * lineSegmentLength);
 
 	aie::Gizmos::add2DLine(start, end, m_color);
+}
+
+void Plane::resolveCollision(RigidBody* actor)
+{
+	float elasticity = 1;
+	float j = glm::dot(actor->getVelocity() - (1 + elasticity) * actor->getVelocity(), m_normal);
+	glm::vec2 force = m_normal * j;
+	actor->applyForce(force);
 }
