@@ -4,7 +4,7 @@
 #include "glm/ext.hpp"
 Plane::Plane(glm::vec2 normal, float distance,glm::vec4 color) :PhysicsObject(ShapeType::PLANE)
 {
-	m_normal = normal;
+	m_normal = glm::normalize(normal);
 	m_distance = distance;
 	m_color = color;
 }
@@ -29,10 +29,22 @@ void Plane::draw()
 	aie::Gizmos::add2DLine(start, end, m_color);
 }
 
-void Plane::resolveCollision(RigidBody* actor)
+void Plane::resolveCollision(RigidBody* other)
 {
-	float elasticity = 1;
-	float j = glm::dot(actor->getVelocity() - (1 + elasticity) * actor->getVelocity(), m_normal);
-	glm::vec2 force = m_normal * j;
-	actor->applyForce(force);
+	// j = (Va-((1+e)Va dot n))*n
+	// j is the impluse of collision
+	//e is the coefficent of elasticity
+	//Va is the velocity of other object
+	//n is the plane normal
+	float elasticity = 1.0f;
+	glm::vec2 VelocityA = other->getVelocity();
+	glm::vec2 planeNormal = getNormal();
+	float massA = other->getMass();
+
+	//glm::vec2 j = (other->getMass()* planeNormal * -(1 + elasticity) * glm::dot(VelocityA, planeNormal)) ; 
+	float j = glm::dot(-(1 + elasticity) * (VelocityA), planeNormal) /
+	glm::dot(planeNormal,planeNormal * (1 / massA));
+
+	other->applyForce(planeNormal * j);
+
 }

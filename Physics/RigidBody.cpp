@@ -19,16 +19,26 @@ void RigidBody::fixedUpdate(glm::vec2 gravity, float timeStep)
 	applyForce(gravity * m_mass * timeStep);
 }
 
-void RigidBody::resolveCollision(RigidBody* actor)
+void RigidBody::resolveCollision(RigidBody* other)
 {
-	glm::vec2 normal = glm::normalize(actor->getPosition() - m_position);
-	glm::vec2 relativeVelocity = actor->getVelocity() - m_velocity;
+	//j is impulse magnitude
+	// e is the coefficient of elasticity
+	//Vrel is the relative velocity before collision
+	//n is the collision normal
+	//MA is the mass of object A
+	//Mb is the mass of object B
+	glm::vec2 collisionNormal = glm::normalize(other->getPosition() - getPosition());
+	glm::vec2 relativeVelocity = other->getVelocity() - getVelocity();
+	float massA = getMass();
+	float massB = other->getMass();
 
-	float elasticity = 0.95;
-	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal) / 
-			  ((1 / m_mass) + (1 / actor->getMass()));
-	glm::vec2 force = normal * j;
-	applyForceToActor(actor, force);
+	float elasticity = 1.0f;
+	// j = ((-(1+e)*Vrel) dot n)/ (n dot(n*(1/MA+1/MA)))
+	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), collisionNormal) / 
+			  ((1 / massA) + (1 / massB));
+
+	glm::vec2 impulse = collisionNormal * j;
+	applyForceToOther(other, impulse);
 }
 
 void RigidBody::applyForce(glm::vec2 force)
@@ -37,8 +47,8 @@ void RigidBody::applyForce(glm::vec2 force)
 	m_velocity += acceleration;
 }
 
-void RigidBody::applyForceToActor(RigidBody* actor2, glm::vec2 force)
+void RigidBody::applyForceToOther(RigidBody* other, glm::vec2 force)
 {
-	actor2->applyForce(force);
+	other->applyForce(force);
 	applyForce(-force);
 }
