@@ -11,6 +11,20 @@
 2. download the latest release
 3. unzip the file
 4. launch the .exe file
+## what else should be improved
+1. collision so they follow proper elastisity instead of sticking to each other
+2. add AABB collision and orianted Collision
+
+## libraries
+- aieBootStrap
+
+## Documentation
+### Physics Scene
+#### functions
+- addActor(PhysicsObject* actor)
+- removeActor(PhysicsObject* actor)
+- checkCollisions()
+- 
 
 # aieBootstrap
 
