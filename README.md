@@ -1,3 +1,17 @@
+# BootStrap Physic Implimintaion
+- mouse and keyboard required
+## purpose
+- To demonstrate creating custom physics engine
+## controls
+- Left click to hit cue ball
+- R to reset scene
+- esc to quit application
+## how to launch program
+1. go to release tab on github
+2. download the latest release
+3. unzip the file
+4. launch the .exe file
+
 # aieBootstrap
 
 *NOTE: This project is no longer being actively maintained*
