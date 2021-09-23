@@ -1,4 +1,4 @@
-# BootStrap Physic Implimintaion
+# I.BootStrap Physic Implimintaion
 - mouse and keyboard required
 ## purpose
 - To demonstrate creating custom physics engine
@@ -18,15 +18,7 @@
 ## libraries
 - aieBootStrap
 
-## Documentation
-### Physics Scene
-#### functions
-- addActor(PhysicsObject* actor)
-- removeActor(PhysicsObject* actor)
-- checkCollisions()
-- 
-
-# aieBootstrap
+# II.aieBootstrap
 
 *NOTE: This project is no longer being actively maintained*
 
