@@ -8,9 +8,8 @@
 - esc to quit application
 ## how to launch program
 1. go to release tab on github
-2. download the latest release
-3. unzip the file
-4. launch the .exe file
+2. download the latest release .exe
+3. launch the .exe file
 ## what else should be improved
 1. collision so they follow proper elastisity instead of sticking to each other
 2. add AABB collision and orianted Collision
