@@ -25,11 +25,17 @@ int main() {
 	}
 
 	//print openGL version to console
-
 	printf("OpenGL version: %i.%i\n", ogl_GetMajorVersion(), ogl_GetMinorVersion());
 
+	while (!glfwWindowShouldClose(window) 
+		&& glfwGetKey(window,GLFW_KEY_ESCAPE) != GLFW_PRESS) {
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+
+	}
+
+	//end application
 	glfwDestroyWindow(window);
 	glfwTerminate();
-	//end application
 	return 0;
 }
