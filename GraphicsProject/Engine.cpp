@@ -25,7 +25,6 @@ int Engine::run()
 		return exitCode;
 
 	while (getGameOver()) {
-		exitCode = update();
 		if (exitCode = update() != 0)
 			return exitCode;
 		if (exitCode = draw() != 0)
@@ -40,9 +39,7 @@ int Engine::run()
 
 int Engine::start()
 {
-	if (glfwInit() == GLFW_FALSE) {
-		return -1;
-	}
+	if (glfwInit() == GLFW_FALSE) return -1;
 
 	//create glfw window
 	m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
