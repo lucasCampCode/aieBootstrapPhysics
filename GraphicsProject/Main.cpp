@@ -1,17 +1,19 @@
 #include "gl_core_4_4.h"
 #include "GLFW/glfw3.h"
-#include "GraphicsGame.h"
 int main() {
 
 	if (!glfwInit()) {
 		return -1;
 	}
+	GLFWwindow* window = glfwCreateWindow(1280, 720,"Graphics Engine",nullptr,nullptr);
+	if (!window) {
+		glfwTerminate();
+		return -2;
+	}
+	glfwMakeContextCurrent(window);
 
-	GraphicsGame* game = new GraphicsGame();
+	glfwDestroyWindow(window);
 
-	game->run();
-
-	delete game;
-
+	glfwTerminate();
 	return 0;
 }
