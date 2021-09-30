@@ -94,6 +94,8 @@ int Engine::update()
 
 	glfwPollEvents();
 
+	m_scene->update();
+
 	return 0;
 }
 
@@ -118,6 +120,8 @@ int Engine::draw()
 int Engine::end()
 {
 	if (!m_window) return -6;
+
+	m_scene->end();
 
 	//end application
 	glfwDestroyWindow(m_window);
