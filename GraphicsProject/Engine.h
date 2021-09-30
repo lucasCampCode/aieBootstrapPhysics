@@ -1,6 +1,7 @@
 #pragma once
 #include "Shader.h"
-#include "Mesh.h"
+#include "Scene.h"
+
 struct GLFWwindow;
 
 class Engine
@@ -24,11 +25,9 @@ private:
 	int m_width, m_height;
 	const char* m_title;
 
+
 	aie::ShaderProgram m_shader;
-	Mesh m_quad;
 
-	glm::mat4 m_viewMatrix;
-	glm::mat4 m_projectionMatrix;
-
+	Scene* m_scene;
 };
 

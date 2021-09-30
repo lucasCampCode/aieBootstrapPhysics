@@ -16,6 +16,8 @@ public:
 	void start();
 	void draw();
 
+	void generateVertices(Vertex* vertices, int& vertexCount);
+
 	glm::mat4 getTrasform() { return m_transform; }
 	void setTransform(glm::mat4 transform) { m_transform = transform; }
 private:
