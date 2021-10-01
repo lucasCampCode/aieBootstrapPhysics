@@ -7,7 +7,6 @@ Scene::Scene(int width, int height)
 }
 void Scene::start()
 {
-
 	m_quad.start();
 
 	//create camera transforms
@@ -26,6 +25,12 @@ void Scene::start()
 
 void Scene::update()
 {
+	
+	m_viewMatrix = glm::lookAt(
+		{ 10.0f,10.0f,10.0f },
+		glm::vec3(0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	);
 }
 
 void Scene::draw()
