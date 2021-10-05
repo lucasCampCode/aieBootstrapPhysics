@@ -27,8 +27,33 @@ int Engine::run()
 	if (exitCode = start() != 0)
 		return exitCode;
 
+	double prevTime = glfwGetTime();
+	double currTime = 0;
+	double deltaTime = 0;
+	unsigned int frames = 0;
+	double fpsInterval = 0;
+
+
 	while (getGameOver()) {
-		if (exitCode = update() != 0)
+		// update delta time
+		currTime = glfwGetTime();
+		deltaTime = currTime - prevTime;
+		if (deltaTime > 0.1f)
+			deltaTime = 0.1f;
+
+		prevTime = currTime;
+
+		// update fps every second
+		frames++;
+		fpsInterval += deltaTime;
+		if (fpsInterval >= 1.0f) {
+			m_fps = frames;
+			frames = 0;
+			fpsInterval -= 1.0f;
+		}
+
+
+		if (exitCode = update(deltaTime) != 0)
 			return exitCode;
 		if (exitCode = draw() != 0)
 			return exitCode;
@@ -88,13 +113,13 @@ int Engine::start()
 	return 0;
 }
 
-int Engine::update()
+int Engine::update(float deltaTime)
 {
 	if (!m_window) return -4;
 
 	glfwPollEvents();
 
-	m_scene->update();
+	m_scene->update(deltaTime);
 
 	return 0;
 }
@@ -107,8 +132,7 @@ int Engine::draw()
 
 	m_shader.bind();
 
-	glm::mat4 projectionViewModel = m_scene->getProjectionViewModel();
-	m_shader.bindUniform("projectionViewModel", projectionViewModel);
+	m_shader.bindUniform("projectionViewModel", m_scene->getProjectionViewModel());
 
 	m_scene->draw();
 

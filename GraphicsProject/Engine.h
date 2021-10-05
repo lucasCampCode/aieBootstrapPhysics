@@ -15,7 +15,7 @@ public:
 
 private:
 	int start();
-	int update();
+	int update(float deltaTime);
 	int draw();
 	int end();
 
@@ -25,6 +25,7 @@ private:
 	int m_width, m_height;
 	const char* m_title;
 
+	unsigned int m_fps;
 
 	aie::ShaderProgram m_shader;
 
