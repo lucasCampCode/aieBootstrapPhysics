@@ -31,24 +31,24 @@ void Scene::update(float deltaTime)
 	
 }
 
-void Scene::draw()
+void Scene::draw(aie::ShaderProgram* shader)
 {
-	m_quad.draw();
+	m_quad.draw(shader);
 }
 
 void Scene::end()
 {
 }
 
-glm::mat4 Scene::getProjectionViewModel()
+glm::mat4 Scene::getProjectionView()
 {
-	return m_projectionMatrix * m_camera.getTransform() * m_quad.getTrasform();
+	return m_projectionMatrix * m_camera.getTransform();
 }
 
 float Scene::TimeStep(float& curTime, float& step)
 {
-	curTime;
 	if (curTime > 1 || curTime < 0)
 		step *= -1;
+
 	return 0.0f;
 }

@@ -9,6 +9,7 @@ Engine::Engine() : Engine(1280,720,"window")
 
 Engine::Engine(int width, int height, const char* title)
 {
+	m_shader = new aie::ShaderProgram();
 	m_scene = new Scene(width, height);
 	m_width = width;
 	m_height = height;
@@ -19,6 +20,7 @@ Engine::Engine(int width, int height, const char* title)
 Engine::~Engine()
 {
 	delete m_scene;
+	delete m_shader;
 }
 
 int Engine::run()
@@ -55,7 +57,7 @@ int Engine::run()
 
 		if (exitCode = update(deltaTime) != 0)
 			return exitCode;
-		if (exitCode = draw() != 0)
+		if (exitCode = draw(m_shader) != 0)
 			return exitCode;
 	}
 
@@ -94,16 +96,16 @@ int Engine::start()
 	glEnable(GL_DEPTH_TEST);
 
 	//initialize the shader
-	m_shader.loadShader(
+	m_shader->loadShader(
 		aie::eShaderStage::VERTEX,
 		"simpleVert.shader"
 	);
-	m_shader.loadShader(
+	m_shader->loadShader(
 		aie::eShaderStage::FRAGMENT,
 		"simpleFrag.shader"
 	);
-	if (!m_shader.link()) {
-		printf("Shader Error: %s\n", m_shader.getLastError());
+	if (!m_shader->link()) {
+		printf("Shader Error: %s\n", m_shader->getLastError());
 		return -10;
 	}
 
@@ -124,17 +126,17 @@ int Engine::update(float deltaTime)
 	return 0;
 }
 
-int Engine::draw()
+int Engine::draw(aie::ShaderProgram* shader)
 {
 	if (!m_window) return -5;
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_shader.bind();
+	shader->bind();
 
-	m_shader.bindUniform("projectionViewModel", m_scene->getProjectionViewModel());
+	shader->bindUniform("projectionViewMatrix", m_scene->getProjectionView());
 
-	m_scene->draw();
+	m_scene->draw(shader);
 
 	glfwSwapBuffers(m_window);
 

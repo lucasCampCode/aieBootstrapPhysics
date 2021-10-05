@@ -12,11 +12,11 @@ public:
 	~Engine();
 
 	int run();
-
+	aie::ShaderProgram* getShader() { return m_shader; }
 private:
 	int start();
 	int update(float deltaTime);
-	int draw();
+	int draw(aie::ShaderProgram* shader);
 	int end();
 
 	bool getGameOver();
@@ -27,7 +27,7 @@ private:
 
 	unsigned int m_fps;
 
-	aie::ShaderProgram m_shader;
+	aie::ShaderProgram* m_shader;
 
 	Scene* m_scene;
 };
