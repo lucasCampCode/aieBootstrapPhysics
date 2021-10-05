@@ -1,6 +1,7 @@
 #pragma once
 #include "Shader.h"
 #include "Camera.h"
+#include "Light.h"
 #include "Quad.h"
 #include "glm/mat4x4.hpp"
 class Scene
@@ -16,25 +17,30 @@ public:
 
 	glm::mat4 getProjectionView();
 
-	float TimeStep(float& curTime, float& step);
+	void setXStepSpeed(float step);
+	void setYStepSpeed(float step);
 
-	void setXStepSpeed(float step) { m_xStep = step; }
-	void setYStepSpeed(float step) { m_xStep = step; }
+	void cameraMovement(float deltaTime);
 
 private:
 
 	int m_width = 1280, m_height = 720;
 
-	Quad m_quad = Quad({1.0f,0.5f,0.25f,1.0f});
 	glm::vec3 m_cameraPos = glm::vec3();
 	Camera m_camera = Camera();
 	glm::mat4 m_projectionMatrix = glm::mat4(1);
+
+	Quad m_quad;
+	Light m_light;
+
 private:
 	float m_xTime = 0;
 	float m_yTime = 0;
+
 	float m_xStep = 1;
 	float m_yStep = 1;
 
+	int m_place = 0;
 
 };
 
