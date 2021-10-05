@@ -7,16 +7,15 @@ Scene::Scene(int width, int height)
 }
 void Scene::start()
 {
+	m_quad.setTransform(glm::mat4(10.0f));
 	m_quad.start();
 
 	//create camera transforms
-	m_camera.setTransform(
-		glm::lookAt(
-			{ 2.0f,2.0f,2.0f },
-			glm::vec3(0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)
-		)
-	);
+	m_camera.setTransform(glm::lookAt(
+		{ 2.0f,2.0f,2.0f },
+		glm::vec3(0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	));
 		
 	m_projectionMatrix = glm::perspective(
 		m_camera.getFieldOfView() * glm::pi<float>() / 180,
