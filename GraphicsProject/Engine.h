@@ -25,8 +25,6 @@ private:
 	int m_width, m_height;
 	const char* m_title;
 
-	unsigned int m_fps;
-
 	aie::ShaderProgram* m_shader;
 
 	Scene* m_scene;

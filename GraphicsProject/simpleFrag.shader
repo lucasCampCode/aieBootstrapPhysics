@@ -11,7 +11,7 @@ uniform vec4 lightDiffuse;
 uniform vec4 lightSpecular;
 uniform float specularPower;
 
-uniform vec4 cameraPosition;
+uniform vec3 cameraPosition;
 
 out vec4 FragColor;
 
@@ -28,7 +28,7 @@ void main() {
 	vec4 diffuseColor = fColor  * lightDiffuse * lambertTerm;
 
 	//calculate specular color
-	vec3 surfaceToView = normalize(cameraPosition.xyz - fPosition.xyz);
+	vec3 surfaceToView = normalize(cameraPosition - fPosition.xyz);
 	vec3 reflectionNormal = reflect(lightNormal,surfaceNormal);
 
 	float specularTerm = dot(surfaceToView, reflectionNormal);

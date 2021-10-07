@@ -1,7 +1,7 @@
+#include "Engine.h"
 #include "gl_core_4_4.h"
 #include "GLFW/glfw3.h"
 #include "glm/ext.hpp"
-#include "Engine.h"
 #include <iostream>
 Engine::Engine() : Engine(1280,720,"window")
 {
@@ -15,7 +15,6 @@ Engine::Engine(int width, int height, const char* title)
 	m_width = width;
 	m_height = height;
 	m_title = title;
-	m_fps = 0;
 }
 
 
@@ -31,30 +30,20 @@ int Engine::run()
 	exitCode = start();
 	if (exitCode)
 		return exitCode;
+
 	double previousTime = 0.0f;
 	double currentTime = 0.0f;
 	double deltaTime = 0.0f;
-	unsigned int frames = 0;
-	double fpsInterval = 0.0f;
 
 
 	while (getGameOver()) {
 		// update delta time
 		currentTime = glfwGetTime();
+
 		deltaTime = currentTime - previousTime;
-		if (deltaTime > 0.1f)
-			deltaTime = 0.1f;
 
 		previousTime = currentTime;
 
-		// update fps every second
-		frames++;
-		fpsInterval += deltaTime;
-		if (fpsInterval >= 1.0f) {
-			m_fps = frames;
-			frames = 0;
-			fpsInterval -= 1.0f;
-		}
 
 		exitCode = update(deltaTime);
 		if (exitCode)

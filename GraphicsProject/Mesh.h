@@ -20,7 +20,7 @@ public:
 
 	virtual Vertex* generateVertices(unsigned int& vertexCount,unsigned int& tricount) = 0;
 
-	glm::mat4 getTrasform() { return m_transform; }
+	glm::mat4 getTransform() { return m_transform; }
 	void setTransform(glm::mat4 transform) { m_transform = transform; }
 private:
 	glm::mat4 m_transform;
