@@ -5,6 +5,7 @@
 #include <iostream>
 Engine::Engine() : Engine(1280,720,"window")
 {
+	
 }
 
 Engine::Engine(int width, int height, const char* title)
@@ -14,6 +15,7 @@ Engine::Engine(int width, int height, const char* title)
 	m_width = width;
 	m_height = height;
 	m_title = title;
+	m_fps = 0;
 }
 
 
@@ -25,25 +27,25 @@ Engine::~Engine()
 
 int Engine::run()
 {
-	int exitCode = 0;
-	if (exitCode = start() != 0)
+	int exitCode = 0; 
+	exitCode = start();
+	if (exitCode)
 		return exitCode;
-
-	double prevTime = glfwGetTime();
-	double currTime = 0;
-	double deltaTime = 0;
+	double previousTime = 0.0f;
+	double currentTime = 0.0f;
+	double deltaTime = 0.0f;
 	unsigned int frames = 0;
-	double fpsInterval = 0;
+	double fpsInterval = 0.0f;
 
 
 	while (getGameOver()) {
 		// update delta time
-		currTime = glfwGetTime();
-		deltaTime = currTime - prevTime;
+		currentTime = glfwGetTime();
+		deltaTime = currentTime - previousTime;
 		if (deltaTime > 0.1f)
 			deltaTime = 0.1f;
 
-		prevTime = currTime;
+		previousTime = currentTime;
 
 		// update fps every second
 		frames++;
@@ -54,10 +56,11 @@ int Engine::run()
 			fpsInterval -= 1.0f;
 		}
 
-
-		if (exitCode = update(deltaTime) != 0)
+		exitCode = update(deltaTime);
+		if (exitCode)
 			return exitCode;
-		if (exitCode = draw(m_shader) != 0)
+		exitCode = draw(m_shader);
+		if (exitCode)
 			return exitCode;
 	}
 
@@ -73,7 +76,6 @@ int Engine::start()
 
 	//create glfw window
 	m_window = glfwCreateWindow(m_width, m_height, m_title, nullptr, nullptr);
-
 	//if window wasm't sucefully created end application
 	if (!m_window) {
 		glfwTerminate();
@@ -109,13 +111,13 @@ int Engine::start()
 		return -10;
 	}
 
-
+	m_scene->setWindow(m_window);
 	m_scene->start();
 
 	return 0;
 }
 
-int Engine::update(float deltaTime)
+int Engine::update(double deltaTime)
 {
 	if (!m_window) return -4;
 

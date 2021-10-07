@@ -15,7 +15,7 @@ public:
 	aie::ShaderProgram* getShader() { return m_shader; }
 private:
 	int start();
-	int update(float deltaTime);
+	int update(double deltaTime);
 	int draw(aie::ShaderProgram* shader);
 	int end();
 

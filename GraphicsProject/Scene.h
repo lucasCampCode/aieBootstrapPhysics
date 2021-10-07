@@ -20,7 +20,10 @@ public:
 	void setXStepSpeed(float step);
 	void setYStepSpeed(float step);
 
-	void cameraMovement(float deltaTime);
+	void cameraMovement(double deltaTime);
+
+	GLFWwindow* getWindow() { return m_window; }
+	void setWindow(GLFWwindow* window) { m_window = window; }
 
 private:
 
@@ -32,6 +35,8 @@ private:
 
 	Quad m_quad;
 	Light m_light;
+
+	GLFWwindow* m_window = nullptr;
 
 private:
 	float m_xTime = 0;

@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "glm/ext.hpp"
+#include"GLFW/glfw3.h"
 Scene::Scene(int width, int height)
 {
 	m_width = width;
@@ -80,7 +81,7 @@ void Scene::setYStepSpeed(float step)
 }
 
 
-void Scene::cameraMovement(float deltaTime)
+void Scene::cameraMovement(double deltaTime)
 {
 	switch (m_place)
 	{
@@ -115,7 +116,6 @@ void Scene::cameraMovement(float deltaTime)
 	default:
 		break;
 	}
-
 	m_cameraPos.x = -2 + m_xTime * (2 + 2);
 	m_cameraPos.y = 2.0f;
 	m_cameraPos.z = -2 + m_yTime * (2 + 2);
