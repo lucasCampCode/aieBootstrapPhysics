@@ -42,11 +42,11 @@ glm::mat4 Transform::getMatrix()
 	glm::mat4 matrix = m_matrix;
 
 	if (m_shouldUpdateMatrix) {
-		glm::translate(matrix, m_position);
-		glm::rotate(matrix, m_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::rotate(matrix, m_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-		glm::rotate(matrix, m_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-		glm::scale(matrix, m_scale);
+		matrix = glm::translate(matrix, m_position);
+		matrix = glm::rotate(matrix, m_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+		matrix = glm::rotate(matrix, m_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+		matrix = glm::rotate(matrix, m_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix = glm::scale(matrix, m_scale);
 		m_shouldUpdateMatrix = false;
 	}
 

@@ -9,6 +9,9 @@ Scene::Scene(int width, int height)
 }
 void Scene::start()
 {
+	//init the obj mesh
+	m_objMesh.load("Dragon.obj",false);
+	//init the quad
 	m_quad.setTransform(glm::mat4(10.0f));
 	m_quad.setColor({ 1.0f,0.25f,0.0f,1.0f });
 	m_quad.start();
@@ -35,13 +38,13 @@ void Scene::update(double deltaTime)
 {
 	int keyForward = GLFW_KEY_W;
 	int keyBack = GLFW_KEY_S;
-	int keyLeft = GLFW_KEY_A;
-	int keyRight = GLFW_KEY_D;
-	int keyUp = GLFW_KEY_E;
-	int keyDown = GLFW_KEY_Q;
+	int keyLeft = GLFW_KEY_D;
+	int keyRight = GLFW_KEY_A;
+	int keyUp = GLFW_KEY_Q;
+	int keyDown = GLFW_KEY_E;
 
-	float cameraSpeed = 1.0f;
-	float cameraSensitivity = 10.0f;
+	float cameraSpeed = 10.0f;
+	float cameraSensitivity = 0.5f;
 
 	//Calculate the forward vector
 	glm::vec3 cameraForward = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -56,7 +59,8 @@ void Scene::update(double deltaTime)
 	//Rotate camera using change in mouse position
 	double deltaMouseX = m_currentMouseX - m_previousMouseX;
 	double deltaMouseY = m_currentMouseY - m_previousMouseY;
-	if (deltaMouseX != 0.0 || deltaMouseY != 0.0)
+
+	if ((deltaMouseX != 0.0 || deltaMouseY != 0.0) && glfwGetMouseButton(m_window,GLFW_MOUSE_BUTTON_1))
 	{
 		Transform cameraTransform = m_camera.getTransform();
 		cameraTransform.rotate(glm::vec3(deltaMouseY, deltaMouseX, 0.0f) * (float)(cameraSensitivity * deltaTime));
@@ -110,8 +114,6 @@ void Scene::update(double deltaTime)
 		cameraTransform.translate(-cameraUp * cameraSpeed * (float)deltaTime);
 		m_camera.setTransform(cameraTransform);
 	}
-	std::cout << m_camera.getTransform().getPosition().x<<", "<< m_camera.getTransform().getPosition().y<<", "<< m_camera.getTransform().getPosition().z << std::endl;
-	std::cout << m_camera.getTransform().getRotation().x << ", " << m_camera.getTransform().getRotation().y << ", " << m_camera.getTransform().getRotation().z << std::endl;
 }
 
 void Scene::draw(aie::ShaderProgram* shader)
@@ -121,9 +123,11 @@ void Scene::draw(aie::ShaderProgram* shader)
 	shader->bindUniform("lightAmbient", m_light.getAmbient());
 	shader->bindUniform("lightDiffuse", m_light.getDiffuse());
 	shader->bindUniform("lightSpecular", m_light.getSpecular());
-	shader->bindUniform("specularPower", m_light.getSpecularPower());
+	shader->bindUniform("LightSpecularPower", m_light.getSpecularPower());
 
-	m_quad.draw(shader);
+	shader->bindUniform("modelMatrix", m_objTransform);
+	m_objMesh.draw();
+	//m_quad.draw(shader);
 }
 
 void Scene::end()

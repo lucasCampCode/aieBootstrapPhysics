@@ -85,5 +85,13 @@
     <None Include="simpleFrag.shader">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Dragon.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Dragon.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
   </ItemGroup>
 </Project>

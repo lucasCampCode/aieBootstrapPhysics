@@ -174,8 +174,14 @@
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dragon.mtl" />
     <None Include="simpleFrag.shader" />
     <None Include="simpleVert.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Dragon.obj">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
