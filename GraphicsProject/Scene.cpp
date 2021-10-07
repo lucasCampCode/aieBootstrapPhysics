@@ -127,7 +127,7 @@ void Scene::draw(aie::ShaderProgram* shader)
 
 	shader->bindUniform("modelMatrix", m_objTransform);
 	m_objMesh.draw();
-	//m_quad.draw(shader);
+	m_quad.draw(shader);
 }
 
 void Scene::end()

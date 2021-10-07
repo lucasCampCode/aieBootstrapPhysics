@@ -43,7 +43,7 @@ void Mesh::start()
 		vertices,			//all vertices
 		GL_STATIC_DRAW		//how the data will update
 	);
-
+	unsigned int memoryPosition = 0u;
 	//enable vertex position as first attribute
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(
@@ -52,27 +52,56 @@ void Mesh::start()
 		GL_FLOAT,				//type of each value
 		GL_FALSE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		0						//memory position of this attribute
+		(void*)memoryPosition	//memory position of this attribute
 	);
-	//enable vertex color as second attribute
+	//enable vertex normal as second attribute
+	memoryPosition += sizeof(Vertex::position);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(
 		1,						//attribute index
 		4,						//number of value within the attrivute
 		GL_FLOAT,				//type of each value
-		GL_FALSE,				//whether to normalize
+		GL_TRUE,				//whether to normalize
 		sizeof(Vertex),			//size in bytes of one vertex
-		(void*)sizeof(glm::vec4)//memory position of this attribute
+		(void*)memoryPosition	//memory position of this attribute
 	);
+
+	memoryPosition += sizeof(Vertex::normal);
+	//enable vertex texture	cooSrdnate as third attribute
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(
 		2,								//attribute index
+		2,								//number of value within the attrivute
+		GL_FLOAT,						//type of each value
+		GL_FALSE,						//whether to normalize
+		sizeof(Vertex),					//size in bytes of one vertex
+		(void*)memoryPosition			//memory position of this attribute
+	);
+
+	memoryPosition += sizeof(Vertex::texCoord);
+	//enable vertex tangent as fourth attribute
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(
+		3,								//attribute index
 		4,								//number of value within the attrivute
 		GL_FLOAT,						//type of each value
-		GL_TRUE,						//whether to normalize
+		GL_FALSE,						//whether to normalize
 		sizeof(Vertex),					//size in bytes of one vertex
-		(void*)(sizeof(glm::vec4) * 2)	//memory position of this attribute
+		(void*)memoryPosition			//memory position of this attribute
 	);
+
+	memoryPosition += sizeof(Vertex::tangent);
+	//enable vertex color as fifth attribute
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(
+		4,								//attribute index
+		4,								//number of value within the attrivute
+		GL_FLOAT,						//type of each value
+		GL_FALSE,						//whether to normalize
+		sizeof(Vertex),					//size in bytes of one vertex
+		(void*)memoryPosition			//memory position of this attribute
+	);
+	memoryPosition += sizeof(Vertex::color);
 
 	//unbind buffer and array
 	glBindVertexArray(0);
