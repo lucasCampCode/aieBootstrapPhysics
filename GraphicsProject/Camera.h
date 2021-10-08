@@ -1,5 +1,7 @@
 #pragma once
 #include "Transform.h"
+class GLFWwindow;
+
 class Camera
 {
 public:
@@ -8,9 +10,9 @@ public:
 		: m_fieldOfView{ fieldOfView }, m_nearClip{ nearClip }, m_farClip{ farClip } {}
 	~Camera() {}
 
-	void update(double deltaTIme);
+	void update(double deltaTime,GLFWwindow* window);
 	glm::mat4 getViewMatrix();
-	glm::mat4 getProjectionMatrix(float width,float height);
+	glm::mat4 getProjectionMatrix(float width, float height);
 
 	Transform getTransform() { return m_transform; }
 	void setTransform(Transform transform) { m_transform = transform; }
@@ -23,11 +25,16 @@ public:
 
 private:
 	Transform m_transform = Transform();
-	float m_fieldOfView = 45.0f;
-	float m_nearClip = 0.001f;
-	float m_farClip = 1000.0f;
+	float m_fieldOfView{ 45.0f };
+	float m_nearClip{ 0.001f };
+	float m_farClip{ 1000.0f };
 
-	float m_theta;
-	float m_phi;
+	float m_theta{ 0.0f };
+	float m_phi{ 0.0f };
+private:
+	double m_currentMouseX;
+	double m_currentMouseY;
+	double m_previousMouseX;
+	double m_previousMouseY;
 };
 
