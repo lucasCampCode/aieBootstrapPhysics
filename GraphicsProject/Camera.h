@@ -14,6 +14,11 @@ public:
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix(float width, float height);
 
+	float getPitch() { return m_phi; }
+	void setPitch(float pitch) { m_phi = pitch; }
+	float getYaw() { return m_theta; }
+	void setYaw(float yaw) { m_theta = yaw; }
+
 	Transform getTransform() { return m_transform; }
 	void setTransform(Transform transform) { m_transform = transform; }
 	float getFieldOfView() { return m_fieldOfView; }
@@ -31,6 +36,7 @@ private:
 
 	float m_theta{ 0.0f };
 	float m_phi{ 0.0f };
+
 private:
 	double m_currentMouseX;
 	double m_currentMouseY;

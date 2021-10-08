@@ -31,6 +31,7 @@ void Scene::start()
 void Scene::update(double deltaTime)
 {
 	m_camera.update(deltaTime, m_window);
+
 }
 
 void Scene::draw(aie::ShaderProgram* shader)
