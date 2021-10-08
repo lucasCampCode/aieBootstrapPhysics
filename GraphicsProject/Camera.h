@@ -8,6 +8,10 @@ public:
 		: m_fieldOfView{ fieldOfView }, m_nearClip{ nearClip }, m_farClip{ farClip } {}
 	~Camera() {}
 
+	void update(double deltaTIme);
+	glm::mat4 getViewMatrix();
+	glm::mat4 getProjectionMatrix(float width,float height);
+
 	Transform getTransform() { return m_transform; }
 	void setTransform(Transform transform) { m_transform = transform; }
 	float getFieldOfView() { return m_fieldOfView; }
@@ -22,5 +26,8 @@ private:
 	float m_fieldOfView = 45.0f;
 	float m_nearClip = 0.001f;
 	float m_farClip = 1000.0f;
+
+	float m_theta;
+	float m_phi;
 };
 
