@@ -2,8 +2,11 @@
 #version 410
 
 in vec4 fPosition;
+in vec2 fTexCoord;
 in vec3 fNormal;
 in vec4 fColor;
+
+uniform sampler2D diffuseTexture;
 
 uniform vec3 Ka;
 uniform vec3 Kd;
@@ -18,7 +21,7 @@ uniform float LightSpecularPower;
 
 uniform vec3 cameraPosition;
 
-out vec4 FragColor;
+out vec4 pColor;
 
 void main() {
 	vec3 surfaceNormal = normalize(fNormal);
@@ -45,5 +48,5 @@ void main() {
 	//color = ambientColor + diffuseColor + specularColor 
 	vec4 color = ambientColor + diffuseColor + specularColor;
 
-	FragColor = color;
+	pColor = fColor * texture(diffuseTexture,fTexCoord);
 }

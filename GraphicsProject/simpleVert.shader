@@ -12,9 +12,11 @@ uniform mat4 modelMatrix;
 
 out vec4 fPosition;
 out vec3 fNormal;
+out vec2 fTexCoord;
 out vec4 fColor;
 
 void main() {
+	fTexCoord = vTexCoord;
 	fPosition = vPosition;
 	fColor = vColor;
 	fNormal = (modelMatrix * vNormal).xyz;

@@ -22,13 +22,16 @@ Quad::Vertex* Quad::generateVertices(unsigned int& vertexCount, unsigned int& tr
 
 	for (int i = 0; i < vertexCount; i++) {
 		vertices[i].color = m_color;
+		vertices[i].normal = { 0.0f,1.0f,0.0f,0.0f };
 	}
 
-	vertices[0].normal = { 1.0f,1.0f,1.0f,0.0f };
-	vertices[1].normal = { -1.0f,1.0f,1.0f,0.0f };
-	vertices[2].normal = { 1.0f,1.0f,-1.0f,0.0f };
-	vertices[3].normal = { 1.0f,1.0f,-1.0f,0.0f };
-	vertices[4].normal = { -1.0f,1.0f,1.0f,0.0f };
-	vertices[5].normal = { -1.0f,1.0f,-1.0f,0.0f };
+	vertices[0].texCoord = { 0.0f,0.0f };
+	vertices[1].texCoord = { 0.0f,1.0f };
+	vertices[2].texCoord = { 1.0f,0.0f };
+	//triangle 1
+	vertices[3].texCoord = { 1.0f,0.0f };
+	vertices[4].texCoord = { 0.0f,1.0f };
+	vertices[5].texCoord = { 1.0f,1.0f };
+
 	return vertices;
 }
