@@ -9,30 +9,33 @@ void Scene::start()
 {
 	m_quad.start();
 
-	//create camera transforms
-	m_camera.setTransform(
-		glm::lookAt(
-			{ 2.0f,2.0f,2.0f },
-			glm::vec3(0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)
-		)
-	);
-		
-	m_projectionMatrix = glm::perspective(
-		m_camera.getFieldOfView() * glm::pi<float>() / 180,
-		(float)m_width / (float)m_height,
-		m_camera.getNearClip(),
-		m_camera.getFarClip()
-	);
+	if (!m_earthDiffuse.load("earth_diffuse.jpg")) {
+		printf("Failed to load texture");
+	}
+
+	m_camera.setPosition({ 0.0f,1.0f,0.0f });
+	m_camera.setPitch(-45.0f);
 }
 
 void Scene::update(float deltaTime)
 {
-	
+	m_camera.update(deltaTime, m_window);
 }
 
 void Scene::draw()
 {
+	int program = -1;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &program);
+	if (program == -1)
+		printf("no shader bound.\n");
+
+	int diffuseTextureUniform = glGetUniformLocation(program,"diffuseTexture");
+	if (diffuseTextureUniform >= 0)
+		glUniform1i(diffuseTextureUniform, 0);
+	glActiveTexture(GL_TEXTURE0);
+
+	glBindTexture(GL_TEXTURE_2D,m_earthDiffuse.getHandle());
+
 	m_quad.draw();
 }
 
@@ -42,7 +45,7 @@ void Scene::end()
 
 glm::mat4 Scene::getProjectionViewModel()
 {
-	return m_projectionMatrix * m_camera.getTransform() * m_quad.getTrasform();
+	return m_camera.getProjectionMatrix(m_width, m_height) * m_camera.getViewMatrix() * m_quad.getTrasform();
 }
 
 float Scene::TimeStep(float& curTime, float& step)

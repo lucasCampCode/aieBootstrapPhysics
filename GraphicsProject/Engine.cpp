@@ -107,7 +107,7 @@ int Engine::start()
 		return -10;
 	}
 
-
+	m_scene->setWindow(m_window);
 	m_scene->start();
 
 	return 0;

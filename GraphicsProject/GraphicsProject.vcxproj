@@ -157,6 +157,7 @@
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -169,6 +170,14 @@
   <ItemGroup>
     <None Include="simpleFrag.shader" />
     <None Include="simpleVert.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Earth Textures\earth_cloud.jpg" />
+    <Image Include="Earth Textures\earth_cloud_trans.jpg" />
+    <Image Include="Earth Textures\earth_diffuse.jpg" />
+    <Image Include="Earth Textures\earth_lights.jpg" />
+    <Image Include="Earth Textures\earth_normal.jpg" />
+    <Image Include="Earth Textures\earth_specular.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
